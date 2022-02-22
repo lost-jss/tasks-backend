@@ -26,9 +26,8 @@ pipeline {
         }
         stage ('Quality Gate') {
             steps {
-                def qualitygate = waitForQualityGate('jenkins')
-                if (qualitygate.status != "OK") {
-                    error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+                waitForQualityGate(abortPipeline: true, credentialsId: 'SONAR_LOCAL', webhookSecretId: 'webhook') {
+                    
                 }
             }
         }
