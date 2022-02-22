@@ -26,7 +26,7 @@ pipeline {
         }
         stage ('Quality Gate') {
             steps {
-                waitForQualityGate abortPipeline: false, credentialsId: 'webhook'
+                waitForQualityGate abortPipeline: false, credentialsId: 'SonarToken'
             }
         }
     }
