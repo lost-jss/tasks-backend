@@ -26,9 +26,9 @@ pipeline {
         }
         stage ('Quality Gate') {
             steps {
-                sleep(10)
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                def qualitygate = waitForQualityGate('jenkins')
+                if (qualitygate.status != "OK") {
+                    error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
                 }
             }
         }
